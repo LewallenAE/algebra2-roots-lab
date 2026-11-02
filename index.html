@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roots Lab — Polynomial Equations Prep</title>
+  <style>
+    :root { --navy:#101a33; --ink:#14223b; --muted:#58667d; --line:#dbe3ee; --bg:#f1f5fb; --white:#fff; --blue:#2456c3; --blue2:#eaf0ff; --green:#136b42; --greenbg:#e8f8ef; --red:#a12d32; --redbg:#fff0ef; --gold:#d9a12e; }
+    * {box-sizing:border-box}
+    body {margin:0; background:var(--bg); font:16px/1.52 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; color:var(--ink)}
+    .top {background:var(--navy); color:var(--white); padding:18px max(20px, calc((100vw - 910px)/2)); display:flex; flex-wrap:wrap; align-items:center; gap:10px; justify-content:space-between}
+    .brand {font-weight:850; letter-spacing:.04em; font-size:19px}
+    .brand span {color:#f7cb72}
+    .tag {font-size:13px; color:#ced9ea; font-weight:650}
+    .wrap {max-width:910px; margin:30px auto 70px; padding:0 20px}
+    .panel {background:var(--white); border-radius:18px; border:1px solid var(--line); box-shadow:0 10px 35px rgba(22,42,75,.07); overflow:hidden}
+    .inner {padding:clamp(22px,5vw,42px)}
+    .eyebrow {color:var(--blue); text-transform:uppercase; font-size:12px; letter-spacing:.12em; font-weight:850}
+    h1 {font-size:clamp(30px,4vw,44px); line-height:1.13; margin:12px 0 15px; letter-spacing:-.035em}
+    h2 {font-size:clamp(24px,3vw,32px); line-height:1.15; letter-spacing:-.025em; margin:10px 0}
+    p {margin:0 0 16px}
+    .lead {font-size:18px; color:#46556f; max-width:660px}
+    .chips {display:flex; flex-wrap:wrap; gap:9px; margin:22px 0 27px}
+    .chip {padding:7px 11px; border-radius:40px; background:#edf2fa; color:#365176; font-size:13px; font-weight:700}
+    .input-label {display:block; font-size:14px; font-weight:750; margin-bottom:9px}
+    input[type=text] {font:inherit; width:100%; max-width:390px; padding:12px 14px; border:2px solid var(--line); border-radius:10px; color:var(--ink)}
+    input[type=text]:focus {outline:3px solid #a7c4ff; border-color:var(--blue)}
+    .btn {font:inherit; font-weight:800; border:0; border-radius:11px; padding:13px 20px; cursor:pointer; transition:transform .12s, background .12s; line-height:1.2}
+    .btn:hover:not(:disabled) {transform:translateY(-1px)}
+    .btn:focus-visible {outline:3px solid #f0b52b;outline-offset:3px}
+    .primary {background:var(--blue);color:white}
+    .primary:hover:not(:disabled) {background:#1944a5}
+    .secondary {background:#edf2fa; color:#233c64}
+    .secondary:hover:not(:disabled) {background:#e1e9f7}
+    .btn:disabled {opacity:.45;cursor:not-allowed}
+    .stack {display:flex; flex-wrap:wrap; gap:10px; margin-top:20px}
+    .note {padding:13px 16px; background:#f7f9fd; border-left:4px solid #789acb; border-radius:8px; color:#44536b; font-size:14px; margin:20px 0}
+    .meta {display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:13px; font-weight:750; color:#4f617f; margin-bottom:13px}
+    .progress {height:9px; background:#e9eef7; border-radius:20px; overflow:hidden}
+    .progress > div {height:100%; background:#3069d0; transition:width .25s}
+    .section-bar {padding:19px clamp(22px,5vw,42px); border-bottom:1px solid var(--line); background:#fbfcff}
+    .question {font-size:clamp(24px,4vw,37px); font-weight:800; line-height:1.28; margin:25px 0 20px; letter-spacing:-.012em}
+    .answers {display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    .choice {text-align:left; background:#fff; border:2px solid #dae3f1; border-radius:12px; padding:16px; color:var(--ink); cursor:pointer; display:flex; align-items:center; gap:12px; font:inherit; font-size:18px; font-weight:700; min-height:73px}
+    .choice strong {display:inline-flex; align-items:center; justify-content:center; font-size:13px; font-weight:900; width:30px; height:30px; flex:0 0 30px; border-radius:8px; background:#e9eef7; color:#425b7d}
+    .choice:hover:not(:disabled) {border-color:#8eaee7; background:#f8faff}
+    .choice.selected {border-color:var(--blue); background:var(--blue2)}
+    .choice:focus-visible {outline:3px solid #f0b52b;outline-offset:2px}
+    .choice:disabled {cursor:default}
+    .choice.correct {border-color:#3da66f;background:#effcf4}
+    .choice.wrong {border-color:#d58789;background:#fff6f5}
+    .feedback {border-radius:11px; padding:15px 16px; margin:20px 0 0; font-weight:650}
+    .feedback.correct {background:var(--greenbg); color:var(--green)}
+    .feedback.wrong {background:var(--redbg); color:var(--red)}
+    .feedback.neutral {background:#eef4ff; color:#264c90}
+    .explain {margin-top:10px; font-size:15px; font-weight:500; line-height:1.6}
+    .help-row {display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:22px}
+    .small {color:#72819a;font-size:13px}
+    .lesson {border-left:5px solid var(--gold); background:#fff9ea; padding:17px 19px; border-radius:0 12px 12px 0; margin:18px 0 22px}
+    .lesson h3 {margin:0 0 8px;font-size:17px}
+    .lesson .worked {font-size:20px; font-weight:800; color:#253c59; margin:7px 0}
+    .lesson p:last-child {margin-bottom:0}
+    .divider {height:1px;background:var(--line); margin:24px 0}
+    .score {font-size:clamp(52px,10vw,80px);font-weight:900; letter-spacing:-.07em; line-height:1.1; margin:10px 0 16px; color:var(--blue)}
+    .results {display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+    .metric {border:1px solid var(--line);border-radius:12px;padding:18px; background:#fbfcff}
+    .metric strong {display:block;font-size:25px}
+    .metric span {color:#52617a;font-size:13px;font-weight:700}
+    .missed {border-top:1px solid var(--line);padding:15px 0}
+    .missed b {display:block;margin-bottom:5px}
+    .printid {font-weight:700}
+    [hidden] {display:none !important}
+    @media(max-width:630px) {.answers,.results{grid-template-columns:1fr}.wrap{margin:14px auto 40px}.choice{font-size:17px}.top{padding:15px 20px}}
+    @media print {body{background:white}.top,.noprint{display:none!important}.wrap{margin:0;padding:0;max-width:none}.panel{border:0;box-shadow:none}.inner{padding:16px}#results{display:block!important}#intro,#quiz,#transition{display:none!important}}
+  </style>
+</head>
+<body>
+  <header class="top"><div class="brand">ROOTS <span>LAB</span></div><div class="tag">ALGEBRA II • MODULE 5 READINESS</div></header>
+  <main class="wrap">
+    <section id="intro" class="panel">
+      <div class="inner">
+        <div class="eyebrow">After your Module 4 CFA</div>
+        <h1>Can you unlock the roots?</h1>
+        <p class="lead">Use what you already know about equations and factoring to discover how polynomial equations are solved.</p>
+        <div class="chips"><span class="chip">16 questions</span><span class="chip">About 20–25 minutes</span><span class="chip">Hints + second chances</span><span class="chip">Work at your own pace</span></div>
+        <label class="input-label" for="student">First and last name</label>
+        <input type="text" id="student" maxlength="80" autocomplete="name" placeholder="Enter your name" />
+        <p class="small" id="nameWarning" role="status" hidden>Please enter your name to begin.</p>
+        <div class="stack"><button class="btn primary" id="startBtn">Start the activity</button></div>
+        <div class="note">You do not need an account. When you finish, take a screenshot of your completion screen and turn it in where your teacher directs. Your answers are not sent anywhere automatically.</div>
+      </div>
+    </section>
+
+    <section id="transition" class="panel" hidden>
+      <div class="inner">
+        <div class="eyebrow" id="transitionLabel"></div>
+        <h2 id="transitionTitle"></h2>
+        <p id="transitionLead" class="lead"></p>
+        <div class="lesson"><h3>Worked example</h3><div id="transitionMath" class="worked"></div><p id="transitionExplanation"></p></div>
+        <div class="stack"><button class="btn primary" id="transitionNext">Try the questions</button></div>
+      </div>
+    </section>
+
+    <section id="quiz" class="panel" hidden>
+      <div class="section-bar">
+        <div class="meta"><span id="roundLabel"></span><span id="progressText"></span></div>
+        <div class="progress" role="progressbar" aria-label="Activity progress" aria-valuemin="0" aria-valuemax="16" aria-valuenow="0" id="progressTrack"><div id="progressFill"></div></div>
+      </div>
+      <div class="inner">
+        <div class="eyebrow" id="skillName"></div>
+        <div class="question" id="questionText"></div>
+        <div id="choices" class="answers" role="group" aria-label="Answer choices"></div>
+        <div id="feedback" class="feedback" role="status" aria-live="polite" hidden></div>
+        <div class="help-row noprint">
+          <button class="btn primary" id="checkBtn" disabled>Check my answer</button>
+          <button class="btn secondary" id="hintBtn">Give me a hint</button>
+          <button class="btn primary" id="nextBtn" hidden>Next question</button>
+        </div>
+        <p class="small noprint" style="margin-top:16px">Tip: Select an answer, then click “Check my answer.” You can also press A, B, C, or D.</p>
+      </div>
+    </section>
+
+    <section id="results" class="panel" hidden>
+      <div class="inner">
+        <div class="eyebrow">Completed • Module 5 readiness</div>
+        <h1>Roots unlocked.</h1>
+        <p class="printid" id="finalName"></p>
+        <p class="lead">You completed the activity. These results help you see what to practice before solving polynomial equations.</p>
+        <div class="score" id="finalScore"></div>
+        <div class="results">
+          <div class="metric"><strong id="finishedCount"></strong><span>Questions completed</span></div>
+          <div class="metric"><strong id="firstTryCount"></strong><span>Correct on the first try</span></div>
+        </div>
+        <div id="practiceArea"></div>
+        <div class="note"><b>Turn-in:</b> Take a screenshot of this page showing your name and results. Submit it in Google Classroom if your teacher has assigned it.</div>
+        <div class="stack noprint"><button class="btn primary" id="retryMissed" hidden>Redo the ones I missed</button><button class="btn secondary" id="restartBtn">Start over</button><button class="btn secondary" id="printBtn">Print / save completion</button></div>
+        <p class="small noprint" style="margin-top:15px">This activity runs in your browser. Closing the tab may clear your progress, so save your completion screen first.</p>
+      </div>
+    </section>
+  </main>
+  <script>
+    'use strict';
+    // Each correctIndex points to exactly one valid answer. All questions are intentionally approachable.
+    const questions = [
+      {unit:0, skill:'Solve linear equations', q:'Solve: 3x = 15', a:['x = 3','x = 5','x = 12','x = −5'], correct:1, hint:'What number multiplied by 3 equals 15?', why:'Divide both sides by 3: x = 15 ÷ 3 = 5.'},
+      {unit:0, skill:'Solve linear equations', q:'Solve: x + 7 = 0', a:['x = 7','x = 0','x = −7','x = −1'], correct:2, hint:'Subtract 7 from both sides.', why:'x = 0 − 7 = −7.'},
+      {unit:0, skill:'Solve linear equations', q:'Solve: 2x − 8 = 0', a:['x = −4','x = 8','x = −8','x = 4'], correct:3, hint:'First add 8. Then divide by 2.', why:'2x = 8, so x = 4.'},
+      {unit:0, skill:'Solve linear equations', q:'Solve: −x + 6 = 0', a:['x = 6','x = −6','x = 0','x = 1'], correct:0, hint:'Move 6 to the other side: −x = −6.', why:'−x = −6, so x = 6.'},
+      {unit:1, skill:'Factor trinomials', q:'Factor: x² + 5x + 6', a:['(x + 1)(x + 6)','(x − 2)(x − 3)','(x + 2)(x + 3)','(x + 5)(x + 1)'], correct:2, hint:'Find two numbers whose product is +6 and whose sum is +5.', why:'2 · 3 = 6 and 2 + 3 = 5, so (x + 2)(x + 3).'},
+      {unit:1, skill:'Factor trinomials', q:'Factor: x² − x − 6', a:['(x − 3)(x + 2)','(x + 3)(x − 2)','(x − 6)(x + 1)','(x − 1)(x − 6)'], correct:0, hint:'Find two numbers whose product is −6 and whose sum is −1.', why:'−3 · 2 = −6 and −3 + 2 = −1, so (x − 3)(x + 2).'},
+      {unit:1, skill:'Difference of squares', q:'Factor: x² − 25', a:['(x − 5)²','(x − 25)(x + 1)','(x + 5)²','(x − 5)(x + 5)'], correct:3, hint:'25 is 5². Remember: a² − b² = (a − b)(a + b).', why:'x² − 25 = x² − 5² = (x − 5)(x + 5).'},
+      {unit:1, skill:'Greatest common factor', q:'Factor: 3x² + 12x', a:['3(x + 4)','3x(x + 4)','3x(x + 12)','x(3x + 12x)'], correct:1, hint:'What factor is shared by both 3x² and 12x?', why:'The greatest common factor is 3x. Dividing gives x + 4, so 3x(x + 4).'},
+      {unit:2, skill:'Zero Product Property', q:'Solve: (x − 4)(x + 1) = 0', a:['x = −4 or 1','x = 4 or 1','x = 4 or −1','x = −4 or −1'], correct:2, hint:'Set each factor equal to 0: x − 4 = 0 or x + 1 = 0.', why:'x − 4 = 0 gives x = 4. x + 1 = 0 gives x = −1.'},
+      {unit:2, skill:'Zero Product Property', q:'Solve: x(x − 6) = 0', a:['x = 0 or 6','x = 6 only','x = −6 only','x = 0 or −6'], correct:0, hint:'Either x = 0 or x − 6 = 0.', why:'The first factor gives x = 0. The second gives x = 6.'},
+      {unit:2, skill:'Zero Product Property', q:'Solve: (x + 3)(x + 5) = 0', a:['x = 3 or 5','x = −3 or 5','x = 3 or −5','x = −3 or −5'], correct:3, hint:'Each factor must be set equal to 0 separately.', why:'x + 3 = 0 gives −3; x + 5 = 0 gives −5.'},
+      {unit:2, skill:'Zero Product Property', q:'Solve: (2x − 8)(x + 2) = 0', a:['x = 8 or −2','x = 4 or −2','x = −4 or 2','x = 4 or 2'], correct:1, hint:'Solve 2x − 8 = 0 and x + 2 = 0.', why:'2x = 8 gives x = 4, and x + 2 = 0 gives x = −2.'},
+      {unit:3, skill:'Factor and solve', q:'Solve: x² + 7x + 12 = 0', a:['x = 3 or 4','x = −2 or −6','x = −3 or −4','x = 3 or −4'], correct:2, hint:'First factor: two numbers multiply to 12 and add to 7.', why:'(x + 3)(x + 4) = 0, so x = −3 or x = −4.'},
+      {unit:3, skill:'Factor and solve', q:'Solve: x² − x − 12 = 0', a:['x = 4 or −3','x = −4 or 3','x = 4 or 3','x = −4 or −3'], correct:0, hint:'Factor with numbers whose product is −12 and sum is −1.', why:'(x − 4)(x + 3) = 0, so x = 4 or x = −3.'},
+      {unit:3, skill:'Factor and solve', q:'Solve: x² − 36 = 0', a:['x = 36 or −36','x = −6 only','x = 6 only','x = 6 or −6'], correct:3, hint:'Use difference of squares: x² − 6².', why:'(x − 6)(x + 6) = 0, so x = 6 or x = −6.'},
+      {unit:3, skill:'Factor and solve', q:'Solve: 2x² + 10x = 0', a:['x = 2 or 10','x = 0 or −5','x = 0 or 5','x = −2 or −10'], correct:1, hint:'Factor out 2x first. One factor is already x.', why:'2x(x + 5) = 0, so x = 0 or x = −5.'}
+    ];
+    const units = [
+      {label:'Round 1 of 4', title:'Warm up: solve for x', lead:'You will need to solve simple linear equations after you set factors equal to zero.', math:'Example: 5x − 10 = 0', explanation:'Add 10 to both sides: 5x = 10. Divide by 5: x = 2.'},
+      {label:'Round 2 of 4', title:'Bring back your factoring skills', lead:'Factoring is the bridge between polynomial expressions and polynomial equations.', math:'Example: x² + 4x + 3 = (x + 1)(x + 3)', explanation:'1 and 3 multiply to 3 and add to 4. Multiplying the factors back together checks your work.'},
+      {label:'Round 3 of 4', title:'New idea: the Zero Product Property', lead:'If two factors multiply to equal zero, at least one factor must be zero.', math:'(x − 2)(x + 4) = 0', explanation:'Set each factor equal to zero: x − 2 = 0 OR x + 4 = 0. Therefore, x = 2 OR x = −4.'},
+      {label:'Round 4 of 4', title:'Put it together: factor, then solve', lead:'This is the exact connection you will use in our next module.', math:'x² + 3x + 2 = 0', explanation:'Factor to get (x + 1)(x + 2) = 0. Set each factor equal to zero. Solutions: x = −1 or x = −2.'}
+    ];
+    const $ = (id) => document.getElementById(id);
+    let studentName = '', session = questions.map((_,i)=>i), pos=0, selected=null, attempts=0, solved=false, hintUsed=false, initialResults=new Map(), isRetry=false;
+    const letters=['A','B','C','D'];
+    function show(id){['intro','transition','quiz','results'].forEach(x=>$(x).hidden=x!==id);window.scrollTo({top:0,behavior:'auto'});}
+    function transition(){
+      if(pos>=session.length){finish();return;}
+      const u=units[questions[session[pos]].unit];
+      $('transitionLabel').textContent=u.label;
+      $('transitionTitle').textContent=u.title;
+      $('transitionLead').textContent=u.lead;
+      $('transitionMath').textContent=u.math;
+      $('transitionExplanation').textContent=u.explanation;
+      show('transition');
+    }
+    function nextQuestion(){
+      if(pos>=session.length){finish();return;}
+      const q=questions[session[pos]];
+      if(pos===0 || q.unit !== questions[session[pos-1]].unit) {transition();return;}
+      render();
+    }
+    function render(){
+      const q=questions[session[pos]];selected=null;attempts=0;solved=false;hintUsed=false;
+      const total=session.length;
+      $('roundLabel').textContent=isRetry?'Redo missed questions':units[q.unit].label+' • '+q.skill;
+      $('progressText').textContent='Question '+(pos+1)+' of '+total;
+      $('progressTrack').setAttribute('aria-valuemax',String(total));
+      $('progressTrack').setAttribute('aria-valuenow',String(pos));
+      $('progressFill').style.width=((pos/total)*100)+'%';
+      $('skillName').textContent=q.skill;
+      $('questionText').textContent=q.q;
+      $('choices').innerHTML='';
+      q.a.forEach((answer,i)=>{
+        const b=document.createElement('button');b.type='button';b.className='choice';b.setAttribute('aria-pressed','false');
+        const letter=document.createElement('strong');letter.textContent=letters[i];
+        const text=document.createElement('span');text.textContent=answer;
+        b.append(letter,text);
+        b.addEventListener('click',()=>{if(solved)return;selected=i; [...$('choices').children].forEach((e,j)=>{e.classList.toggle('selected',i===j);e.setAttribute('aria-pressed',String(i===j));});$('checkBtn').disabled=false;});
+        $('choices').appendChild(b);
+      });
+      $('feedback').hidden=true;$('feedback').textContent='';$('feedback').className='feedback';
+      $('checkBtn').hidden=false;$('checkBtn').disabled=true;
+      $('hintBtn').hidden=false;$('nextBtn').hidden=true;
+      $('nextBtn').textContent=pos===total-1?'View my results':'Next question';
+      show('quiz');
+    }
+    function feedback(kind,text,explain){
+      const f=$('feedback');f.hidden=false;f.className='feedback '+kind;f.textContent=text;
+      if(explain){const d=document.createElement('div');d.className='explain';d.textContent=explain;f.appendChild(d);}
+    }
+    function check(){
+      if(selected===null || solved)return;
+      const id=session[pos],q=questions[id];attempts++;
+      const all=[...$('choices').children];
+      if(selected===q.correct){
+        solved=true;
+        all.forEach((b,i)=>{b.disabled=true;b.classList.toggle('correct',i===q.correct);b.classList.remove('wrong');});
+        feedback('correct',attempts===1?'Correct — first try!':'Correct — nice recovery!',q.why);
+        if(!isRetry)initialResults.set(id,{firstTry:attempts===1,attempts:attempts,hintUsed});
+        $('checkBtn').hidden=true;$('hintBtn').hidden=true;$('nextBtn').hidden=false;$('nextBtn').focus();
+      } else if(attempts>=2){
+        solved=true;
+        all.forEach((b,i)=>{b.disabled=true;b.classList.toggle('correct',i===q.correct);b.classList.toggle('wrong',i===selected);});
+        feedback('wrong','Good effort. Here is the correct answer and how to get it:',q.why);
+        if(!isRetry)initialResults.set(id,{firstTry:false,attempts:attempts,hintUsed});
+        $('checkBtn').hidden=true;$('hintBtn').hidden=true;$('nextBtn').hidden=false;$('nextBtn').focus();
+      } else {
+        all[selected].classList.add('wrong');
+        feedback('wrong','Not quite. Read the hint and try another answer.',q.hint);
+        $('checkBtn').disabled=true;selected=null;
+        all.forEach(b=>{b.classList.remove('selected');b.setAttribute('aria-pressed','false');});
+      }
+    }
+    function finish(){
+      $('finalName').textContent='Student: '+studentName;
+      if(!isRetry){
+        const first=[...initialResults.values()].filter(r=>r.firstTry).length;
+        const missed=[...initialResults.keys()].filter(id=>!initialResults.get(id).firstTry);
+        $('finalScore').textContent=Math.round(first/questions.length*100)+'% first-try accuracy';
+        $('finishedCount').textContent=initialResults.size+' / '+questions.length;
+        $('firstTryCount').textContent=first+' / '+questions.length;
+        const area=$('practiceArea');area.innerHTML='';
+        const h=document.createElement('h2');h.style.fontSize='22px';h.textContent=missed.length?'Practice these skills again':'You are ready for the next step';area.appendChild(h);
+        if(missed.length){
+          const found=[...new Set(missed.map(i=>questions[i].skill))];
+          const p=document.createElement('p');p.textContent=found.join(' • ');area.appendChild(p);
+        } else {const p=document.createElement('p');p.textContent='You got every question correct on the first try. Great preparation for polynomial equations!';area.appendChild(p);}
+        $('retryMissed').hidden=missed.length===0;
+      } else {
+        $('finalScore').textContent='Extra practice complete';
+        $('finishedCount').textContent=session.length+' / '+session.length;
+        $('firstTryCount').textContent='See original';
+        $('practiceArea').innerHTML='<p>You have practiced the problems that needed another try. Keep using the same steps: factor, set each factor equal to zero, solve.</p>';
+        $('retryMissed').hidden=true;
+      }
+      show('results');
+    }
+    $('startBtn').addEventListener('click',()=>{
+      const name=$('student').value.trim();if(!name){$('nameWarning').hidden=false;$('student').focus();return;}
+      studentName=name;isRetry=false;session=questions.map((_,i)=>i);initialResults.clear();pos=0;nextQuestion();
+    });
+    $('student').addEventListener('keydown',e=>{if(e.key==='Enter')$('startBtn').click();});
+    $('transitionNext').addEventListener('click',render);
+    $('checkBtn').addEventListener('click',check);
+    $('hintBtn').addEventListener('click',()=>{hintUsed=true;feedback('neutral','Hint',questions[session[pos]].hint);});
+    $('nextBtn').addEventListener('click',()=>{if(!solved)return;pos++;nextQuestion();});
+    $('restartBtn').addEventListener('click',()=>{if(!confirm('Start a new attempt? Your previous results will be cleared.'))return;session=questions.map((_,i)=>i);initialResults.clear();isRetry=false;pos=0;nextQuestion();});
+    $('retryMissed').addEventListener('click',()=>{session=[...initialResults.keys()].filter(id=>!initialResults.get(id).firstTry).sort((a,b)=>a-b);isRetry=true;pos=0;nextQuestion();});
+    $('printBtn').addEventListener('click',()=>window.print());
+    document.addEventListener('keydown',e=>{
+      if($('quiz').hidden || solved || e.target.tagName==='INPUT')return;
+      const n=letters.indexOf(e.key.toUpperCase());if(n!==-1){e.preventDefault();$('choices').children[n].click();}
+      if(e.key==='Enter' && selected!==null && !$('checkBtn').disabled){e.preventDefault();check();}
+    });
+  </script>
+</body>
+</html>
